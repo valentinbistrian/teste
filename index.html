@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/arcadian" rel="stylesheet">
+    
+    <title>Atelier Atlas</title>
+    <style>
+        /* Resetare CSS */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        @font-face {
+             font-family: title;
+             src: url(2.otf);
+        }
+        @font-face {
+             font-family: jf;
+             src: url(5.otf);
+        }
+        @font-face {
+             font-family: mic;
+             src: url(4.ttf);
+        }
+        @font-face {
+             font-family: arc;
+             src: url(3.otf);
+        }
+        @import url('https://fonts.cdnfonts.com/css/arcadian');
+
+
+        /* Stiluri de bază */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #logo {
+            background-color: transparent;
+            font-family: title; /* Header incolor */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 0; /* Asigură că headerul este peste fundalul video */
+        }
+
+        @keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+        #continut1 {
+            background-color: transparent;
+            font-family: jf; /* Header incolor */
+            color: #fff;
+            top: 20%;
+            animation: 1s ease-out 0s 1 slideInLeft;
+            font-size: 220%;
+            text-align: center;
+            position: relative;
+            z-index: 0; /* Asigură că headerul este peste fundalul video */
+        }
+        @media (max-width: 600px) {
+      #continut1 {
+            background-color: transparent;
+            font-family: jf; /* Header incolor */
+            color: #fff;
+            top: 20%;
+            font-size: 150%;
+            text-align: center;
+            position: relative;
+            z-index: 0; /* Asigură că headerul este peste fundalul video */
+        }}
+
+        #menu-icon {
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #fff;
+            z-index: 3;
+        }
+
+        nav {
+            font-family: mic;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Asezare pe mijloc pe orizontala */
+            justify-content: center; /* Asezare pe mijloc pe verticala */
+            position: fixed;
+            top: -100%;
+            right: 0%;
+            background-color: rgb(0, 0, 0); /* Fundal meniu cu efect de opacitate */
+            color: #fff;
+            transition: top 0.3s ease-in-out; /* Animatie de sus in jos */
+            height: 30%;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        nav a {
+            color: #989898;
+            text-decoration: none;
+            margin: 10px;
+            font-size: 20px;
+            transition: color 0.3s ease-in-out;
+            text-align: center; /* Asezare pe mijloc */
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            
+        }
+
+        /* Stiluri container video */
+        #video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* Stiluri video */
+        #video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Asigură că video este sub conținutul principal */
+        }
+
+        /* Stiluri buton static */
+        /* Stiluri buton imagine */
+#logo-button {
+    position: fixed;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 3; /* Asigură că butonul este peste meniu */
+}
+
+#logo-button img {
+    width: 200px; /* Lățimea imaginii */
+    height: 200px; /* Înălțimea imaginii */
+    border-radius: 10px; /* Rotunjire colțuri (poate fi ajustată) */
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out; /* Animatie dimensiuni buton */
+}
+
+#logo-button:hover img {
+    width: 215px; /* Lățimea imaginii */
+    height: 215px;
+    
+}
+
+.product-container {
+      display: flex;
+      flex-wrap: wrap; /* Permite ca produsele să treacă la rând nou pe ecrane mici */
+      justify-content: space-between;
+      gap: 5px;
+      padding: 0px;
+      margin-left: 100px;
+      margin-right: 100px;
+      
+    }
+
+    .product {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      transition: background-color 0.3s ease;
+      margin: 0;
+      border: none;
+      outline: none;
+      border-radius: 8px;
+      text-decoration: none; /* Elimina sublinierea implicita a link-ului */
+      color: black; /* Seteaza culoarea textului pentru a fi mai vizibil */
+      display: block; /* Face link-urile să se întindă pe întreaga lățime a containerului */
+    }
+
+    .product img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .product:hover {
+      background-color: #ddd;
+    }
+
+    .magazinul-tau {
+        font-family: mic;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .product-container {
+        flex-direction: column;
+      }
+    }
+
+    p{
+        font-family: arc;
+        font-size: 30px;
+    }
+
+    .produse{
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+
+  
+
+        
+
+        /* Stiluri responsive */
+        @media only screen and (max-width: 768px) {
+            header {
+                z-index: 3; /* Asigură că headerul este peste tot */
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                margin: 10px 0;
+            }
+        }
+
+        
+
+        .s1 {
+            background-image: url('s2.jpg'); /* Înlocuiește 'calea/catre/imagine.jpg' cu calea reală către imaginea ta */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .texts1 {
+            font-family: arc;
+            font-size: 500%;
+            margin-bottom: 20px;
+        }
+
+        .buton {
+            padding: 10px 20px;
+            background-color: #fff;
+            font-family: mic;
+            color: black;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .buton:hover {
+            background-color: #c1c1c1;
+        }
+
+        .s3 {
+      display: flex;
+      height: 100vh; /* Setează înălțimea containerului la 100% din înălțimea ecranului */
+    }
+
+    .half {
+      flex: 1; /* Împarte containerul în două părți egale */
+      overflow: hidden;
+      position: relative;
+    }
+
+    .half img {
+      width: 100%; /* Asigură că imaginea ocupă întreaga lățime a părții stângi */
+      height: 100%;
+      object-fit: cover; /* Redimensionare imagine pentru a acoperi întreaga zonă */
+    }
+
+    .text-container {
+      flex: 1; /* Împarte containerul în două părți egale */
+      background-color: #d6c48b; /* Culorea de fundal pentru partea dreaptă */
+      color: #ffffff; /* Culorea textului */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .text-container2 {
+      flex: 1; /* Împarte containerul în două părți egale */
+      background-color: #800020; /* Culorea de fundal pentru partea dreaptă */
+      color: #ffffff; /* Culorea textului */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+        color:#fff;
+        background-color: #000;
+    }
+    @media only screen and (max-width: 768px) {
+  .s3 {
+    flex-direction: column;
+  }
+}
+
+
+
+
+///produse 
+
+
+
+
+
+
+.container {
+  max-width: 1200px;
+  width: 95%;
+}
+
+.slider-wrapper {
+  position: relative;
+}
+
+.slider-wrapper .slide-button {
+  position: absolute;
+  top: 50%;
+  outline: none;
+  border: none;
+  height: 50px;
+  width: 50px;
+  z-index: 5;
+  color: #fff;
+  display: flex;
+  cursor: pointer;
+  font-size: 2.2rem;
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-wrapper .slide-button:hover {
+  background: #404040;
+}
+
+.slider-wrapper .slide-button#prev-slide {
+  left: -25px;
+  display: none;
+}
+
+.slider-wrapper .slide-button#next-slide {
+  right: -25px;
+}
+
+.slider-wrapper .image-list {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 18px;
+  font-size: 0;
+  list-style: none;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.slider-wrapper .image-list::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-wrapper .image-list .image-item {
+  width: 325px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.slider-wrapper .image-list .image-item:hover {
+  
+  webkit-filter: blur(2px); /* Chrome, Safari, Opera */
+    filter: blur(2px);
+  transition:all 0.2s ease-in-out;
+}
+
+
+
+
+.container .slider-scrollbar {
+  height: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.slider-scrollbar .scrollbar-track {
+  background: #ccc;
+  width: 100%;
+  height: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.slider-scrollbar:hover .scrollbar-track {
+  height: 4px;
+}
+
+.slider-scrollbar .scrollbar-thumb {
+  position: absolute;
+  background: #000;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  cursor: grab;
+  border-radius: inherit;
+}
+
+.slider-scrollbar .scrollbar-thumb:active {
+  cursor: grabbing;
+  height: 8px;
+  top: -2px;
+}
+
+.slider-scrollbar .scrollbar-thumb::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  bottom: -10px;
+}
+
+/* Styles for mobile and tablets */
+@media only screen and (max-width: 1023px) {
+  .slider-wrapper .slide-button {
+    display: none !important;
+  }
+
+  .slider-wrapper .image-list {
+    gap: 10px;
+    margin-bottom: 15px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .slider-wrapper .image-list .image-item {
+    width: 280px;
+    height: 380px;
+  }
+
+  .slider-scrollbar .scrollbar-thumb {
+    width: 20%;
+  }
+}
+.alege{
+  font-family: arc;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+    <!-- Container pentru video -->
+    <div id="video-container">
+        
+            <div id="logo"><h1>atelieratlas</h1></div>
+            <div id="continut1"><h1>Fine art stationery</h1></div>
+            <div id="menu-icon">&#9776;</div>
+        
+
+        <!-- Video pe loop pentru prima secțiune -->
+        <video id="video-background" autoplay loop muted>
+            <source src="2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <nav>
+            <a href="#">acasa</a>
+            <a href="despre.html">despre</a>
+            <a href="produse.html">servicii</a>
+            <a href="#">contact</a>
+        </nav>
+
+        <!-- Stiluri buton imagine -->
+<a href="#" id="logo-button">
+    <img src="buton.png" alt="Logo Button">
+</a>
+
+    </div>
+
+    <main>
+      <section class="produse">
+        <!-- Alte secțiuni ale site-ului -->
+<h1 class="alege">Alege un produs</h1>
+      <div class="prd">
+        <div class="container">
+          <div class="slider-wrapper">
+            <button id="prev-slide" class="slide-button material-symbols-rounded">
+              chevron_left
+            </button>
+            <ul class="image-list">
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+              <a href=#><img class="image-item" src="p1.png" alt="img-1" /> </a>
+             
+            </ul>
+            <button id="next-slide" class="slide-button material-symbols-rounded">
+              chevron_right
+            </button>
+          </div>
+          <div class="slider-scrollbar">
+            <div class="scrollbar-track">
+              <div class="scrollbar-thumb"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+    <div class="s1">
+        <div class="texts1">
+            <p>Descopera-ne</p>
+        </div>
+        <a href="#link" class="buton">afla povestea</a>
+    </div>
+
+    <div class="s3">
+        <div class="half">
+          <img src="s21.jpg" alt="Imagine">
+        </div>
+        <div class="text-container">
+          <p>o</p>
+        </div>
+      </div>
+
+      <div class="s3">
+        <div class="text-container2">
+          <p>o</p>
+        </div>
+        <div class="half">
+          <img src="s22.jpg" alt="Imagine">
+        </div>
+      </div>
+
+    </section>
+    
+
+
+    </main>
+
+    <footer>
+        
+        <p>&copy; 2024 Nume Companie. Toate drepturile rezervate.</p>
+    </footer>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const nav = document.querySelector('nav');
+
+        menuIcon.addEventListener('click', toggleMenu);
+
+        function toggleMenu() {
+            nav.style.top = nav.style.top === '0%' ? '-100%' : '0%';
+            
+        }
+
+
+
+
+
+
+        const initSlider = () => {
+    const imageList = document.querySelector(".slider-wrapper .image-list");
+    const slideButtons = document.querySelectorAll(".slider-wrapper .slide-button");
+    const sliderScrollbar = document.querySelector(".container .slider-scrollbar");
+    const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
+    const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
+    
+    // Handle scrollbar thumb drag
+    scrollbarThumb.addEventListener("mousedown", (e) => {
+        const startX = e.clientX;
+        const thumbPosition = scrollbarThumb.offsetLeft;
+        const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
+        
+        // Update thumb position on mouse move
+        const handleMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const newThumbPosition = thumbPosition + deltaX;
+
+            // Ensure the scrollbar thumb stays within bounds
+            const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
+            const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
+            
+            scrollbarThumb.style.left = `${boundedPosition}px`;
+            imageList.scrollLeft = scrollPosition;
+        }
+
+        // Remove event listeners on mouse up
+        const handleMouseUp = () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        // Add event listeners for drag interaction
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+    });
+
+    // Slide images according to the slide button clicks
+    slideButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const direction = button.id === "prev-slide" ? -1 : 1;
+            const scrollAmount = imageList.clientWidth * direction;
+            imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
+    });
+
+     // Show or hide slide buttons based on scroll position
+    const handleSlideButtons = () => {
+        slideButtons[0].style.display = imageList.scrollLeft <= 0 ? "none" : "flex";
+        slideButtons[1].style.display = imageList.scrollLeft >= maxScrollLeft ? "none" : "flex";
+    }
+
+    // Update scrollbar thumb position based on image scroll
+    const updateScrollThumbPosition = () => {
+        const scrollPosition = imageList.scrollLeft;
+        const thumbPosition = (scrollPosition / maxScrollLeft) * (sliderScrollbar.clientWidth - scrollbarThumb.offsetWidth);
+        scrollbarThumb.style.left = `${thumbPosition}px`;
+    }
+
+    // Call these two functions when image list scrolls
+    imageList.addEventListener("scroll", () => {
+        updateScrollThumbPosition();
+        handleSlideButtons();
+    });
+}
+
+window.addEventListener("resize", initSlider);
+window.addEventListener("load", initSlider);
+
+let isDown = false;
+let startX;
+let scrollLeft;
+const slider = document.querySelector('.image-list');
+
+const end = () => {
+	isDown = false;
+  slider.classList.remove('active');
+}
+
+const start = (e) => {
+  isDown = true;
+  slider.classList.add('active');
+  startX = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;	
+}
+
+const move = (e) => {
+	if(!isDown) return;
+
+  e.preventDefault();
+  const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
+  const dist = (x - startX);
+  slider.scrollLeft = scrollLeft - dist;
+}
+
+(() => {
+	slider.addEventListener('mousedown', start);
+	slider.addEventListener('touchstart', start);
+
+	slider.addEventListener('mousemove', move);
+	slider.addEventListener('touchmove', move);
+
+	slider.addEventListener('mouseleave', end);
+	slider.addEventListener('mouseup', end);
+	slider.addEventListener('touchend', end);
+})();
+    </script>
+</body>
+</html>
