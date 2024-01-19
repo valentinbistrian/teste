@@ -164,6 +164,32 @@ body {
     width: 20%;
   }
 }
+
+.slider-wrapper .image-list {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 18px;
+  font-size: 0;
+  list-style: none;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* Pentru a ascunde scrollbar-ul pe IE/Edge */
+  scroll-snap-type: x mandatory;
+  -webkit-scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+}
+
+.slider-wrapper .image-list .image-item {
+  width: 325px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 5px;
+  scroll-snap-align: start;
+  -webkit-scroll-snap-align: start;
+}
+
     </style>
   </head>
   <body>
@@ -302,7 +328,13 @@ const move = (e) => {
 	slider.addEventListener('mouseup', end);
 	slider.addEventListener('touchend', end);
 })();
-
+slideButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const direction = button.id === "prev-slide" ? -1 : 1;
+        const scrollAmount = imageList.clientWidth * direction * 0.8; // Ajustează valoarea aici
+        imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+});
 
     </script>
   </body>

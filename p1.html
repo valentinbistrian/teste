@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produs</title>
+    <style>
+
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+@font-face {
+             font-family: title;
+             src: url(2.otf);
+        }
+        @font-face {
+             font-family: jf;
+             src: url(5.otf);
+        }
+        @font-face {
+             font-family: mic;
+             src: url(4.ttf);
+        }
+        @font-face {
+             font-family: arc;
+             src: url(3.otf);
+        }
+
+        @font-face {
+             font-family: mon;
+             src: url(moneta.otf);
+        }
+        @import url('https://fonts.cdnfonts.com/css/arcadian');
+
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('pf1.jpg');
+            background-size: 2000px 2000px;
+            background-color: #000000;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #product-container {
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+
+        #product-image-container {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #main-image {
+            max-width: 100%;
+            height: auto;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+            transform-origin: center center;
+            position: relative;
+        }
+
+        #zoom-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+            z-index: 2;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .slider-arrow {
+            font-size: 24px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        #slider-left {
+            left: 10px;
+        }
+
+        #slider-right {
+            right: 10px;
+        }
+
+        #product-info {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: mon ;
+        }
+
+        #product-description {
+            margin-bottom: 30px;
+            color: #000000;
+            text-indent: 10px;
+        }
+
+        #order-button {
+            margin-top: 10px;
+            
+            background-color: #01010100;
+            color: rgb(0, 0, 0);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 70px;
+            cursor: pointer;
+            font-size: 30px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #order-button:hover {
+            background-color: #ffffff;
+            color:#894141;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #product-container {
+                padding: 10px;
+            }
+
+            #product-info {
+                margin-top: 10px;
+            }
+
+            #order-button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .thumbnail {
+                width: 60px;
+            }
+
+            .slider-arrow {
+                font-size: 20px;
+            }
+
+            #slider-left {
+                left: 5px;
+            }
+
+            #slider-right {
+                right: 5px;
+            }
+
+            #zoom-icon {
+                display: block;
+            }
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+
+
+
+
+
+
+
+
+        #logo {
+            background-color: ;
+            font-family: title; /* Header incolor */
+            color: #fff;
+            margin-left:20px;
+            text-align: center;
+            position: fixed;
+            
+            z-index: 1; /* Asigură că headerul este peste fundalul video */
+        }
+
+        @keyframes  {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+        
+
+        #menu-icon {
+          
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #fff;
+            z-index: 5;
+        }
+
+        nav {
+            font-family: mic;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Asezare pe mijloc pe orizontala */
+            justify-content: center; /* Asezare pe mijloc pe verticala */
+            position: fixed;
+            top: -100%;
+            right: 0%;
+            background-color: rgb(0, 0, 0); /* Fundal meniu cu efect de opacitate */
+            color: #fff;
+            transition: top 0.3s ease-in-out; /* Animatie de sus in jos */
+            height: 30%;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        nav a {
+            color: #989898;
+            text-decoration: none;
+            margin: 10px;
+            font-size: 20px;
+            transition: color 0.3s ease-in-out;
+            text-align: center; /* Asezare pe mijloc */
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            
+        }
+
+        /* Stiluri container video */
+       
+
+        /* Stiluri buton static */
+        /* Stiluri buton imagine */
+#logo-button {
+    position: fixed;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 3; /* Asigură că butonul este peste meniu */
+}
+
+#logo-button img {
+    width: 200px; /* Lățimea imaginii */
+    height: 200px; /* Înălțimea imaginii */
+    border-radius: 10px; /* Rotunjire colțuri (poate fi ajustată) */
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out; /* Animatie dimensiuni buton */
+}
+
+#logo-button:hover img {
+    width: 215px; /* Lățimea imaginii */
+    height: 215px;
+    
+}
+    </style>
+</head>
+<body>
+
+
+    <div id="video-container">
+        
+        <div id="logo"><h1>atelieratlas</h1></div>
+       
+        <div id="menu-icon">&#9776;</div>
+    
+
+    <!-- Video pe loop pentru prima secțiune -->
+    
+
+    <nav>
+        <a href="index.html">acasa</a>
+        <a href="despre.html">despre</a>
+        <a href="index.html">produse</a>
+        <a href="contact.html">contact</a>
+    </nav>
+
+    <!-- Stiluri buton imagine -->
+
+
+</div>
+
+<div id="product-container">
+    <div id="product-image-container">
+        <img src="p1.png" alt="Product Image" id="main-image" onclick="openLightbox()" onmousedown="startDragging(event)" onmouseup="stopDragging()" onmousemove="dragImage(event)">
+        <div id="zoom-icon" onclick="toggleZoomIcon()"> </div>
+        <img src="p1.png" alt="Thumbnail 1" class="thumbnail" onclick="changeImage('p1.png')">
+        <img src="p2.png" alt="Thumbnail 2" class="thumbnail" onclick="changeImage('p2.png')">
+        <img src="p3.png" alt="Thumbnail 3" class="thumbnail" onclick="changeImage('p3.png')">
+        <div id="slider-left" class="slider-arrow" onclick="navigateSlider(-1)">❮</div>
+        <div id="slider-right" class="slider-arrow" onclick="navigateSlider(1)">❯</div>
+    </div>
+
+    <div id="product-info">
+        <div id="product-description">
+            
+        <a href="tel:+123456789" id="order-button">COMANDA ACUM</a>
+    </div>
+</div>
+
+<div id="lightbox" onclick="closeLightbox()">
+    <span id="close-button" onclick="closeLightbox()">✕</span>
+    <img id="lightbox-image" src="" alt="Zoomed Image" onwheel="zoomImage(event)">
+</div>
+
+<script>
+    var images = ["p1.png", "p2.png", "p3.png"];
+    var currentIndex = 0;
+    var isZoomed = false;
+    var isDragging = false;
+    var startX, currentX;
+
+    function changeImage(imageSrc) {
+        document.getElementById('main-image').style.opacity = 0;
+        setTimeout(function() {
+            document.getElementById('main-image').src = imageSrc;
+            document.getElementById('main-image').style.opacity = 1;
+            resetZoom();
+        }, 500);
+        currentIndex = images.indexOf(imageSrc);
+    }
+
+    function navigateSlider(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1;
+        } else if (currentIndex >= images.length) {
+            currentIndex = 0;
+        }
+        document.getElementById('main-image').style.opacity = 0;
+        setTimeout(function() {
+            document.getElementById('main-image').src = images[currentIndex];
+            document.getElementById('main-image').style.opacity = 1;
+            resetZoom();
+        }, 500);
+    }
+
+    function placeOrder() {
+        alert('Comanda a fost plasată!');
+    }
+
+    function openLightbox() {
+        if (!isZoomed) {
+            var currentImageSrc = document.getElementById('main-image').src;
+            document.getElementById('lightbox-image').src = currentImageSrc;
+            document.getElementById('lightbox').style.display = 'flex';
+            isZoomed = true;
+            updateZoomIcon();
+        } else {
+            closeLightbox();
+        }
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+        resetZoom();
+        updateZoomIcon();
+    }
+
+    function resetZoom() {
+        document.getElementById('lightbox-image').style.transform = 'scale(1)';
+        isZoomed = false;
+    }
+
+    function zoomImage(event) {
+        if (isZoomed) {
+            event.preventDefault();
+
+            var scale = 1.2;
+            var delta = event.deltaY || event.detail || event.wheelDelta;
+
+            var direction = (delta > 0) ? -1 : 1;
+
+            var currentScale = parseFloat(window.getComputedStyle(document.getElementById('lightbox-image')).transform.split(',')[3]);
+            var newScale = currentScale + direction * 0.1;
+
+            if (newScale < 1) {
+                newScale = 1;
+            }
+
+            document.getElementById('lightbox-image').style.transform = 'scale(' + newScale + ')';
+        }
+    }
+
+    function toggleZoomIcon() {
+        isZoomed ? hideZoomIcon() : showZoomIcon();
+    }
+
+    function showZoomIcon() {
+        document.getElementById('zoom-icon').style.display = 'block';
+    }
+
+    function hideZoomIcon() {
+        document.getElementById('zoom-icon').style.display = 'none';
+    }
+
+    function updateZoomIcon() {
+        isZoomed ? showZoomIcon() : hideZoomIcon();
+    }
+
+    function startDragging(event) {
+        if (isZoomed) {
+            isDragging = true;
+            startX = event.clientX || event.touches[0].clientX;
+        }
+    }
+
+    function stopDragging() {
+        isDragging = false;
+        startX = 0;
+        currentX = 0;
+    }
+
+    function dragImage(event) {
+        if (isDragging) {
+            currentX = event.clientX || event.touches[0].clientX;
+            var deltaX = currentX - startX;
+
+            var currentTranslateX = parseFloat(window.getComputedStyle(document.getElementById('main-image')).transform.split(',')[4]);
+            var newTranslateX = currentTranslateX + deltaX;
+
+            document.getElementById('main-image').style.transform = 'translateX(' + newTranslateX + 'px)';
+
+            startX = currentX;
+        }
+    }
+
+    const menuIcon = document.getElementById('menu-icon');
+        const nav = document.querySelector('nav');
+
+        menuIcon.addEventListener('click', toggleMenu);
+
+        function toggleMenu() {
+            nav.style.top = nav.style.top === '0%' ? '-100%' : '0%';
+            
+        }
+</script>
+
+</body>
+</html>
