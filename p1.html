@@ -48,7 +48,7 @@
         }
 
         #product-container {
-            max-width: 800px;
+            max-width: 400px;
             background-color: #ffffff;
             padding: 20px;
             
@@ -332,11 +332,11 @@
 
 <div id="product-container">
     <div id="product-image-container">
-        <img src="p1.png" alt="Product Image" id="main-image" onclick="openLightbox()" onmousedown="startDragging(event)" onmouseup="stopDragging()" onmousemove="dragImage(event)">
+        <img src="/prd/1/invitatie 10 (1).jpg" alt="Product Image" id="main-image" onclick="openLightbox()" onmousedown="startDragging(event)" onmouseup="stopDragging()" onmousemove="dragImage(event)">
         <div id="zoom-icon" onclick="toggleZoomIcon()"> </div>
-        <img src="p1.png" alt="Thumbnail 1" class="thumbnail" onclick="changeImage('p1.png')">
-        <img src="p2.png" alt="Thumbnail 2" class="thumbnail" onclick="changeImage('p2.png')">
-        <img src="p3.png" alt="Thumbnail 3" class="thumbnail" onclick="changeImage('p3.png')">
+        <img src="/prd/1/invitatie 10 (2).jpg" alt="Thumbnail 1" class="thumbnail" onclick="changeImage('/prd/1/invitatie 10 (1).jpg')">
+        <img src="/prd/1/invitatie 10 (3).jpg" alt="Thumbnail 2" class="thumbnail" onclick="changeImage('/prd/1/invitatie 10 (2).jpg')">
+        <img src="/prd/1/invitatie 10 (4).jpg" alt="Thumbnail 3" class="thumbnail" onclick="changeImage('/prd/1/invitatie 10 (3).jpg')">
         <div id="slider-left" class="slider-arrow" onclick="navigateSlider(-1)">❮</div>
         <div id="slider-right" class="slider-arrow" onclick="navigateSlider(1)">❯</div>
     </div>
@@ -354,7 +354,7 @@
 </div>
 
 <script>
-    var images = ["p1.png", "p2.png", "p3.png"];
+    var images = ["/prd/1/invitatie 10 (1).jpg", "/prd/1/invitatie 10 (2).jpg", "/prd/1/invitatie 10 (3).jpg"];
     var currentIndex = 0;
     var isZoomed = false;
     var isDragging = false;
