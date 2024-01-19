@@ -152,6 +152,20 @@
             z-index: -1; /* Asigură că video este sub conținutul principal */
         }
 
+
+
+        @media only screen and (max-width: 768px) {
+          #video-container {
+           
+        }
+
+        /* Stiluri video */
+        #video-background {
+             /* Asigură că video este sub conținutul principal */
+        }
+          
+        }
+
         /* Stiluri buton static */
         /* Stiluri buton imagine */
 #logo-button {
@@ -296,6 +310,7 @@
       display: flex;
       height: 100vh; /* Setează înălțimea containerului la 100% din înălțimea ecranului */
     }
+    
 
     .half {
       flex: 1; /* Împarte containerul în două părți egale */
@@ -320,7 +335,7 @@
 
     .text-container2 {
       flex: 1; /* Împarte containerul în două părți egale */
-      background-color: #800020; /* Culorea de fundal pentru partea dreaptă */
+      background-color: #ebebeb; /* Culorea de fundal pentru partea dreaptă */
       color: #ffffff; /* Culorea textului */
       display: flex;
       align-items: center;
@@ -538,9 +553,76 @@
     pointer-events: auto;
 }
 
+.asez-text p{
+  color:rgb(0, 0, 0);
+  text-align: left;
+  margin-left: -160px;
+  text-decoration: none;
+  font-size: 40px;
+  padding: -30%;
+}
+.asez-text a{
+  color:rgb(0, 0, 0);
+  text-align: left;
+  text-decoration: none;
+}
 
+.asez-text .contact{
+  color:rgb(0, 0, 0);
+  text-align: left;
+  font-family: mon;
+  margin-bottom: 0px;
+  margin-left: -160px;
+  font-size: 20px;
+}
 
+@media only screen and (max-width: 768px) {
+  .asez-text p{
+  color:rgb(0, 0, 0);
+  text-align: left;
+  margin-left: -50px;
+  font-size: 25px;
+}
 
+.asez-text a{
+  color:rgb(0, 0, 0);
+  text-align: left;
+  text-decoration: none;
+}
+
+.asez-text .contact{
+  color:rgb(0, 0, 0);
+  text-align: left;
+  font-family: mon;
+  margin-bottom: 0px;
+  margin-left: -50px;
+  font-size: 15px;
+} 
+        }
+
+        @media only screen and (min-width: 769px) {
+  /* Stiluri video pentru ecrane mai mari */
+  #video-background {
+    display: block;
+  }
+
+  #video-container {
+    background: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* Stiluri pentru ecrane mai mici (mobile) */
+  #video-background {
+    display: none;
+  }
+
+  #video-container {
+    background-image: url('s1.jpg'); /* Înlocuiește cu calea reală către imaginea ta de fundal static */
+    background-size: cover;
+    background-position: center;
+  }
+}
 
 
     </style>
@@ -559,6 +641,7 @@
             <source src="2.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        
 
         <nav>
             <a href="#">acasa</a>
@@ -628,12 +711,17 @@
 
       <div class="s3">
         <div class="text-container2">
-          <p>Contact</p>
+          <div class="asez-text">
+            <h1 class="contact">CONTACT<h1>
+            <p>Bucuresti Sector 1</p>
+            <p>0724 999 317</p>
+            <p><a href="mailto:[adresa@domeniu.com]">contact@atelieratlas.ro</a></p></div>
         </div>
         <div class="half">
-          <img src="s22.jpg" alt="Imagine">
+            <img src="s22.jpg" alt="Imagine">
         </div>
-      </div>
+    </div>
+    
 
     </section>
     
@@ -754,7 +842,7 @@ const move = (e) => {
 
   e.preventDefault();
   const x = e.pageX || e.touches[0].pageX - slider.offsetLeft;
-  const dist = (x - startX);
+  const dist = 2 * (x - startX);
   slider.scrollLeft = scrollLeft - dist;
 }
 
